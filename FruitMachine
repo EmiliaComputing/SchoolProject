@@ -1,0 +1,188 @@
+import arcade
+import random
+
+SCREEN_WIDTH = 500
+SCREEN_HEIGHT = 500
+SCREEN_TITLE = "Fruit Machine"
+
+class MyGame(arcade.Window):
+    def __init__(self):
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+
+        self.cherry_sprite = arcade.Sprite(":resources:images/tiles/mushroomRed.png", 0.25) #mushroom
+        self.bell_sprite = arcade.Sprite(":resources:images/items/keyYellow.png", 0.25) #key
+        self.lemon_sprite = arcade.Sprite(":resources:images/items/coinGold.png", 0.25) #coin
+        self.orange_sprite = arcade.Sprite(":resources:images/enemies/ladybug.png", 0.25) #ladybug
+        self.star_sprite = arcade.Sprite(":resources:images/items/star.png", 0.25) #star
+        self.skull_sprite = arcade.Sprite(":resources:images/enemies/mouse.png", 0.25) #mouse
+        arcade.set_background_color(arcade.color.CAROLINA_BLUE)
+
+    def setup(self):
+        self.option1 = 0
+        self.option2 = 0
+        self.option3 = 0
+        
+        self.clicked = 0
+        self.attempts = 1
+        
+        self.won = False
+
+    def on_draw(self):
+        if self.attempts == 1:
+            arcade.draw_text(f'CLICK', 191, 400, arcade.color.WHITE, 30, font_name='Kenny Rocket Square')
+
+        if self.clicked == 0:
+            arcade.start_render()
+            arcade.draw_rectangle_filled(150, 270, 90, 120, arcade.color.WHITE) 
+            arcade.draw_rectangle_filled(250, 270, 90, 120, arcade.color.WHITE)
+            arcade.draw_rectangle_filled(350, 270, 90, 120, arcade.color.WHITE)
+
+            arcade.draw_rectangle_filled(150, 270, 70, 100, arcade.color.DEEP_CARMINE)
+            arcade.draw_rectangle_filled(250, 270, 70, 100, arcade.color.DEEP_CARMINE)
+            arcade.draw_rectangle_filled(350, 270, 70, 100, arcade.color.DEEP_CARMINE)
+
+            arcade.draw_rectangle_filled(150, 270, 50, 50, arcade.color.WHITE)
+            arcade.draw_rectangle_filled(250, 270, 50, 50, arcade.color.WHITE)
+            arcade.draw_rectangle_filled(350, 270, 50, 50, arcade.color.WHITE)
+
+            arcade.draw_text('1', 140, 222, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
+            arcade.draw_text('2', 240, 222, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
+            arcade.draw_text('3', 340, 222, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
+
+        else:
+            arcade.draw_rectangle_filled(150, 270, 90, 120, arcade.color.WHITE)
+            arcade.draw_rectangle_filled(150, 270, 70, 100, arcade.color.DEEP_CARMINE)
+            arcade.draw_rectangle_filled(150, 270, 50, 50, arcade.color.WHITE)
+            arcade.draw_text('1', 140, 222, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
+            
+            if self.option1 == 1:
+                self.cherry_sprite.position = [150, 270]              
+                self.cherry_sprite.draw()
+                
+            elif self.option1 == 2:
+                self.bell_sprite.position = [150, 270]
+                self.bell_sprite.draw()
+                
+            elif self.option1 == 3:
+                self.lemon_sprite.position = [150, 270]
+                self.lemon_sprite.draw()
+                
+            elif self.option1 == 4:
+                self.orange_sprite.position = [150, 270]
+                self.orange_sprite.draw()
+                
+            elif self.option1 == 5:
+                self.star_sprite.position = [150, 270]
+                self.star_sprite.draw()
+                
+            elif self.option1 == 6:
+                self.skull_sprite.position = [150, 270]
+                self.skull_sprite.draw()
+                
+            arcade.draw_rectangle_filled(250, 270, 90, 120, arcade.color.WHITE)
+            arcade.draw_rectangle_filled(250, 270, 70, 100, arcade.color.DEEP_CARMINE)
+            arcade.draw_rectangle_filled(250, 270, 50, 50, arcade.color.WHITE)
+            arcade.draw_text('2', 240, 222, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
+            
+            if self.option2 == 1:
+                self.cherry_sprite.position = [250, 270]
+                self.cherry_sprite.draw()
+                
+            elif self.option2 == 2:
+                self.bell_sprite.position = [250, 270]
+                self.bell_sprite.draw()
+                
+            elif self.option2 == 3:
+                self.lemon_sprite.position = [250, 270]
+                self.lemon_sprite.draw()
+                
+            elif self.option2 == 4:
+                self.orange_sprite.position = [250, 270]
+                self.orange_sprite.draw()
+                
+            elif self.option2 == 5:
+                self.star_sprite.position = [250, 270]
+                self.star_sprite.draw()
+                
+            elif self.option2 == 6:
+                self.skull_sprite.position = [250, 270]                
+                self.skull_sprite.draw()
+
+            arcade.draw_rectangle_filled(350, 270, 90, 120, arcade.color.WHITE)
+            arcade.draw_rectangle_filled(350, 270, 70, 100, arcade.color.DEEP_CARMINE)
+            arcade.draw_rectangle_filled(350, 270, 50, 50, arcade.color.WHITE)
+            arcade.draw_text('3', 340, 222, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
+
+            if self.option3 == 1:
+                self.cherry_sprite.position = [350, 270]
+                self.cherry_sprite.draw()
+                
+            elif self.option3 == 2:
+                self.bell_sprite.position = [350, 270]
+                self.bell_sprite.draw()
+                
+            elif self.option3 == 3:
+                self.lemon_sprite.position = [350, 270]
+                self.lemon_sprite.draw()
+                
+            elif self.option3 == 4:
+                self.orange_sprite.position = [350, 270]
+                self.orange_sprite.draw()
+                
+            elif self.option3 == 5:
+                self.star_sprite.position = [350, 270]
+                self.star_sprite.draw()
+                
+            elif self.option3 == 6:
+                self.skull_sprite.position = [350, 270]
+                self.skull_sprite.draw()
+
+            if self.won:
+                arcade.draw_text('YOU WON', 185, 120, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
+                if self.attempts != 1:
+                    arcade.draw_text(f'AFTER {self.attempts} ATTEMPTS', 188, 100, arcade.color.WHITE, 10, font_name='Kenny Rocket Square')
+                else:
+                    arcade.draw_text(f'AFTER 1 ATTEMPT', 191, 100, arcade.color.WHITE, 10, font_name='Kenny Rocket Square')                    
+
+    def on_mouse_press(self, x, y, button, modifiers):
+        if not self.won:
+            if self.clicked == 1:
+                self.option1 = random.randint(1, 6)
+            elif self.clicked == 2:
+                self.option2 = random.randint(1, 6)
+            elif self.clicked == 3:
+                self.option3 = random.randint(1, 6)
+
+            self.win()
+
+            self.clicked += 1
+
+            if ((self.clicked > 4) and
+                (self.won == False)):
+                self.clicked = 0
+                self.option1 = 0
+                self.option2 = 0
+                self.option3 = 0
+
+                self.attempts += 1
+
+        else:
+            arcade.draw_text(f'CLICK HERE TO RESTART', 13, 400, arcade.color.WHITE, 28, font_name='Kenny Rocket Square')
+
+            if y > 395 and y < 445:
+                self.setup()
+
+    def win(self):
+        if ((self.option1 == self.option2) and
+            (self.option2 == self.option3) and
+            (self.option1 != 0) and
+            (self.clicked != 4)):
+            self.won = True
+
+def main():
+    print('Click the screen to start')
+    window = MyGame()
+    window.setup()
+    arcade.run()
+
+main()
