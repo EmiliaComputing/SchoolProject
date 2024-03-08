@@ -34,17 +34,20 @@ class MyGame(arcade.Window):
         
         self.clicked = 0
         self.attempts = 1
-        self.credit = 1.2
+        self.credit = 1
         
         self.won = False
         self.no_credit = False
 
     def on_draw(self):
-        if self.attempts == 1 or self.credit == 1.2:
-            arcade.draw_text(f'CLICK', 191, 400, arcade.color.WHITE, 30, font_name='Kenny Rocket Square')
+        if self.attempts == 1 or self.credit == 1:
+            arcade.draw_text('CLICK', 191, 400, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
 
         if self.clicked == 0:
             arcade.start_render()
+
+            arcade.draw_text(f'CREDIT: {self.credit}', 50, 50, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
+        
             arcade.draw_rectangle_filled(150, 270, 90, 120, arcade.color.WHITE) 
             arcade.draw_rectangle_filled(250, 270, 90, 120, arcade.color.WHITE)
             arcade.draw_rectangle_filled(350, 270, 90, 120, arcade.color.WHITE)
@@ -62,6 +65,8 @@ class MyGame(arcade.Window):
             arcade.draw_text('3', 340, 222, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
 
         else:
+            arcade.draw_text(f'CREDIT: {self.credit}', 50, 50, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
+        
             arcade.draw_rectangle_filled(150, 270, 90, 120, arcade.color.WHITE)
             arcade.draw_rectangle_filled(150, 270, 70, 100, arcade.color.DEEP_CARMINE)
             arcade.draw_rectangle_filled(150, 270, 50, 50, arcade.color.WHITE)
@@ -155,7 +160,8 @@ class MyGame(arcade.Window):
                     arcade.draw_text(f'AFTER {self.attempts} ATTEMPTS', 188, 100, arcade.color.WHITE, 10, font_name='Kenny Rocket Square')
                 else:
                     arcade.draw_text(f'AFTER 1 ATTEMPT', 191, 100, arcade.color.WHITE, 10, font_name='Kenny Rocket Square')
-                arcade.draw_text(f'CREDIT LEFT: {self.credit}', 195, 80, arcade.color.WHITE, 10, font_name='Kenny Rocket Square')
+                    arcade.draw_text(f'CREDIT: {self.credit}', 50, 50, arcade.color.WHITE, 20, font_name='Kenny Rocket Square')
+
 
         if self.credit < 0.2:
             arcade.draw_text(f'NO CREDIT', 150, 440, arcade.color.WHITE, 28, font_name='Kenny Rocket Square')
@@ -185,6 +191,7 @@ class MyGame(arcade.Window):
 
                 self.attempts += 1
                 self.credit -= 0.2
+                self.credit = round(self.credit, 2)
 
         elif self.won:
             arcade.draw_text(f'CLICK HERE TO RESTART', 13, 400, arcade.color.WHITE, 28, font_name='Kenny Rocket Square')
@@ -194,7 +201,7 @@ class MyGame(arcade.Window):
 
         elif self.no_credit:
             if y > 395 and y < 445:
-                self.credit += 1.2
+                self.credit += 1.0
                 self.setup()
                 
     def win(self):
@@ -206,7 +213,6 @@ class MyGame(arcade.Window):
             self.credit += 5
 
 def main():
-    print('Click the screen to start')
     window = MyGame()
     window.original_setup()
     arcade.run()
